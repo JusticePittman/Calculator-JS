@@ -20,9 +20,11 @@ body {
 }
 
 .display {
+    height: 5rem;
     background-color: #a8b4a8;
     text-align: right;
-    font-size: 3.5em;
+    line-height: 1.5;
+    font-size: 3.5rem;
 }
 .grid {
     display: grid;
@@ -40,11 +42,13 @@ button {
     padding: 5px;
 }
 
-.operator {
+.operator,
+.equals {
     background-color: #505b61;
     color: #d3d3d3;
 }
 
-.operator:hover {
+.operator:hover,
+.equals:hover {
     background-color: #59676e;
 }
