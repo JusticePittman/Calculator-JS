@@ -4,7 +4,7 @@ displayVal.textContent = displayDefault;
 
 let num1;
 let num2;
-let operator = null;
+let operation = null;
 
 //Button Selectors
 const numButtons = document.querySelectorAll(".number");
@@ -17,10 +17,33 @@ numButtons.forEach((button) =>
 );
 
 operatorButtons.forEach((button) =>
-    button.addEventListener("click", () => setOperator(button.textContent))
+    button.addEventListener("click", () => setOperation(button.textContent))
 );
 
-equalButton.addEventListener("click", operate());
+equalButton.addEventListener("click", calculate);
+
+//Button operation functions
+function setNum(number) {
+    if (operation !== null) {
+        displayVal.textContent = "";
+        displayVal.textContent += number;
+        num2 = displayVal.textContent;
+    } else {
+        displayVal.textContent += number;
+    }
+}
+
+function setOperation(operator) {
+    num1 = displayVal.textContent;
+    operation = operator;
+    displayVal.textContent = operator;
+}
+
+function calculate() {
+    num1 = parseInt(num1);
+    num2 = parseInt(num2);
+    displayVal.textContent = operate(num1, num2, operation);
+}
 
 //Basic Math Functions
 function add(num1, num2) {
