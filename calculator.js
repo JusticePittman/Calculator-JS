@@ -24,25 +24,22 @@ equalButton.addEventListener("click", calculate);
 
 //Button operation functions
 function setNum(number) {
-    if (operation !== null) {
-        displayVal.textContent = "";
-        displayVal.textContent += number;
-        num2 = displayVal.textContent;
-    } else {
-        displayVal.textContent += number;
-    }
+    displayVal.textContent += number;
 }
 
 function setOperation(operator) {
-    num1 = displayVal.textContent;
-    operation = operator;
-    displayVal.textContent = operator;
+    displayVal.textContent += ` ${operator} `;
 }
 
 function calculate() {
-    num1 = parseInt(num1);
-    num2 = parseInt(num2);
-    displayVal.textContent = operate(num1, num2, operation);
+    // num1 = parseInt(num1);
+    // num2 = parseInt(num2);
+    calculation = displayVal.textContent.split(" ");
+    num1 = parseInt(calculation[0]);
+    num2 = parseInt(calculation[2]);
+    operator = calculation[1];
+    displayVal.textContent = operate(num1, num2, operator);
+    // displayVal.textContent = operate(num1, num2, operator);
 }
 
 //Basic Math Functions
