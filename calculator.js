@@ -1,7 +1,7 @@
 //Default values
 let num1;
 let num2;
-let currentoperator = null;
+let currentOperator = null;
 
 //Display Selectors
 const display = document.querySelector(".display");
@@ -52,6 +52,7 @@ function setNum(number) {
 }
 
 function setOperator(operator) {
+    if (currentOperator !== null) calculate();
     num1 = dispResults.textContent;
     currentOperator = operator;
     dispEquation.textContent = `${num1} ${operator}`;
@@ -60,9 +61,32 @@ function setOperator(operator) {
 
 function calculate() {
     num2 = dispResults.textContent;
-    dispResults.textContent = operate(num1, num2, currentOperator);
+    dispResults.textContent = round(operate(num1, num2, currentOperator));
     dispEquation.textContent = "";
+    currentOperator = null;
 }
+
+function round(num) {
+    return Math.round((num + Number.EPSILON) * 10000) / 10000;
+}
+
+function clearAll() {
+    dispEquation.textContent = "";
+    dispResults.textContent = "";
+    num1 = "";
+    num2 = "";
+    currentOperator = null;
+}
+
+function deleteCurrent() {
+    dispResults.textContent = dispResults.textContent.toString().slice(0, -1);
+}
+
+function numAsPercentage() {}
+
+function positiveOrNegative() {}
+
+function addDecimal() {}
 
 //Basic Math Functions
 function add(num1, num2) {
