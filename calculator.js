@@ -1,10 +1,12 @@
-const displayDefault = null;
-const displayVal = document.querySelector(".display");
-displayVal.textContent = displayDefault;
-
+//Default values
 let num1;
 let num2;
-let operation = null;
+let currentoperator = null;
+
+//Display Selectors
+const display = document.querySelector(".display");
+const dispEquation = document.querySelector(".equation");
+const dispResults = document.querySelector(".results");
 
 //Button Selectors
 const numButtons = document.querySelectorAll(".number");
@@ -17,29 +19,49 @@ numButtons.forEach((button) =>
 );
 
 operatorButtons.forEach((button) =>
-    button.addEventListener("click", () => setOperation(button.textContent))
+    button.addEventListener("click", () => setOperator(button.textContent))
 );
 
 equalButton.addEventListener("click", calculate);
 
+miscButtons.forEach((button) => {
+    switch (button.textContent) {
+        case "CLR":
+            button.addEventListener("click", clearAll);
+            break;
+        case "DEL":
+            button.addEventListener("click", deleteCurrent);
+            break;
+        case "%":
+            button.addEventListener("click", numAsPercentage);
+            break;
+        case "+/-":
+            button.addEventListener("click", positiveOrNegative);
+            break;
+        case ".":
+            button.addEventListener("click", addDecimal);
+            break;
+        default:
+            break;
+    }
+});
+
 //Button operation functions
 function setNum(number) {
-    displayVal.textContent += number;
+    dispResults.textContent += number;
 }
 
-function setOperation(operator) {
-    displayVal.textContent += ` ${operator} `;
+function setOperator(operator) {
+    num1 = dispResults.textContent;
+    currentOperator = operator;
+    dispEquation.textContent = `${num1} ${operator}`;
+    dispResults.textContent = "";
 }
 
 function calculate() {
-    // num1 = parseInt(num1);
-    // num2 = parseInt(num2);
-    calculation = displayVal.textContent.split(" ");
-    num1 = parseInt(calculation[0]);
-    num2 = parseInt(calculation[2]);
-    operator = calculation[1];
-    displayVal.textContent = operate(num1, num2, operator);
-    // displayVal.textContent = operate(num1, num2, operator);
+    num2 = dispResults.textContent;
+    dispResults.textContent = operate(num1, num2, currentOperator);
+    dispEquation.textContent = "";
 }
 
 //Basic Math Functions
@@ -57,6 +79,8 @@ function divide(num1, num2) {
 }
 
 function operate(num1, num2, operator) {
+    num1 = Number(num1);
+    num2 = Number(num2);
     switch (operator) {
         case "+":
             return add(num1, num2);

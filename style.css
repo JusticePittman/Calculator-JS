@@ -20,11 +20,20 @@ body {
 }
 
 .display {
-    height: 6rem;
+    height: 7rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     background-color: #a8b4a8;
     text-align: right;
-    line-height: 1.5;
-    font-size: 2.5rem;
+}
+
+.equation {
+    font-size: 2rem;
+}
+
+.results {
+    font-size: 3.5rem;
 }
 .grid {
     display: grid;
