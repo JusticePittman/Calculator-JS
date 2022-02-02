@@ -46,6 +46,39 @@ miscButtons.forEach((button) => {
     }
 });
 
+document.addEventListener("keydown", (e) => {
+    operators = ["+", "-", "*", "/"];
+    switch (true) {
+        case Number.isInteger(Number(e.key)):
+            setNum(e.key);
+            break;
+        case operators.includes(e.key):
+            if (e.key === "/") {
+                e.preventDefault();
+                setOperator(e.key);
+            } else {
+                setOperator(e.key);
+            }
+            break;
+        case e.key === "Enter":
+            calculate();
+            break;
+        case e.key === "Backspace" || e.key === "Delete":
+            deleteCurrent();
+            break;
+        case e.key === "Escape":
+            clearAll();
+        case e.key === "%":
+            numAsPercentage();
+            break;
+        case e.key === ".":
+            addDecimal();
+            break;
+        default:
+            break;
+    }
+});
+
 //Button operation functions
 function setNum(number) {
     dispResults.textContent += number;
@@ -82,11 +115,23 @@ function deleteCurrent() {
     dispResults.textContent = dispResults.textContent.toString().slice(0, -1);
 }
 
-function numAsPercentage() {}
+function numAsPercentage() {
+    percentage = dispResults.textContent / 100;
+    dispResults.textContent = percentage;
+}
 
-function positiveOrNegative() {}
+function positiveOrNegative() {
+    if (dispResults.textContent.includes("-", 0)) {
+        dispResults.textContent = dispResults.textContent.substring(1);
+    } else {
+        dispResults.textContent = "-" + dispResults.textContent;
+    }
+}
 
-function addDecimal() {}
+function addDecimal() {
+    if (dispResults.textContent.includes(".")) return;
+    dispResults.textContent += ".";
+}
 
 //Basic Math Functions
 function add(num1, num2) {
